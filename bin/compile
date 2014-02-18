@@ -20,7 +20,7 @@
 mkdir -p ~/.ssh/
 chmod 700 ~/.ssh/
 
-if [[ -z "$SSH_KEY" ]]; then
+if [ -z "$SSH_KEY" ]; then
     env_dir=$3
     echo "env_dir=$env_dir"
     ssh_key_file="$env_dir/SSH_KEY"
