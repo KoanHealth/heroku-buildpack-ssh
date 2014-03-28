@@ -19,11 +19,9 @@
 
 mkdir -p ~/.ssh/
 chmod 700 ~/.ssh/
-echo $0
-echo $1
-echo $2
-echo $3
-echo `cat $1/SSH_KEY`
+
+echo `ls -la $3`
+
 
 if [ -z "$SSH_KEY" ]; then
     env_dir=$3
