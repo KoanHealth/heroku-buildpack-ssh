@@ -27,11 +27,8 @@ if [ -z "$SSH_KEY" ]; then
     env_dir=$3
     echo "env_dir=$env_dir"
     ssh_key_file="$env_dir/SSH_KEY"
-    if [ ! -f "$ssh_key_file" ]; then
-        echo "$ssh_key_file not found";
-        exit 1;
-    fi
-    SSH_KEY = $(cat "$ssh_key_file")
+    echo "ssh_key_file=$ssh_key_file"
+    SSH_KEY=$(cat "$ssh_key_file")
 fi
 
 echo "$SSH_KEY" > ~/.ssh/id_rsa
