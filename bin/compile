@@ -24,7 +24,8 @@ if [ -z "$SSH_KEY" ]; then
     env_dir=$3
     ssh_key_file="$env_dir/SSH_KEY"
     echo "cp $ssh_key_file ~/.ssh/config"
-    cp $ssh_key_file ~/.ssh/config
+    cp $ssh_key_file ~/.ssh
+    mv ~/.ssh/SSH_KEY ~/.ssh/config
     chmod 400 ~/.ssh/id_rsa
 
     echo 'StrictHostKeyChecking=no' > ~/.ssh/config
