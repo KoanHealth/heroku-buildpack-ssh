@@ -34,12 +34,12 @@ fi
 
 mkdir -p "$1/.profile.d"
 cat > "$1/.profile.d/00-deploy-ssh-key.sh" << EOF
-echo 'deploy ssh deploy key'
+echo 'deploy ssh key'
 
 mkdir -p ~/.ssh/
 chmod 700 ~/.ssh/
 
-echo "$SSH_KEY" > ~/.ssh/id_rsa
+echo $SSH_KEY > ~/.ssh/id_rsa
 chmod 400 ~/.ssh/id_rsa
 
 echo 'StrictHostKeyChecking=no' > ~/.ssh/config
