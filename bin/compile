@@ -20,12 +20,8 @@
 mkdir -p ~/.ssh/
 chmod 700 ~/.ssh/
 
-echo `ls -la $3`
-
-
 if [ -z "$SSH_KEY" ]; then
     env_dir=$3
-    echo "env_dir=$env_dir"
     ssh_key_file="$env_dir/SSH_KEY"
     echo "ssh_key_file=$ssh_key_file"
     SSH_KEY=$(cat "$ssh_key_file")
