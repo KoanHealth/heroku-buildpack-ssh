@@ -20,25 +20,18 @@
 mkdir -p ~/.ssh/
 chmod 700 ~/.ssh/
 
-echo `ls -la $3`
-
-
 if [ -z "$SSH_KEY" ]; then
     env_dir=$3
-    echo "env_dir=$env_dir"
     ssh_key_file="$env_dir/SSH_KEY"
-    echo "ssh_key_file=$ssh_key_file"
-    SSH_KEY=$(cat "$ssh_key_file")
-fi
+    echo "cp $ssh_key_file ~/.ssh/config"
+    cp ssh_key_file ~/.ssh/config
+    chmod 400 ~/.ssh/id_rsa
 
-echo "$SSH_KEY" > ~/.ssh/id_rsa
-chmod 400 ~/.ssh/id_rsa
+    echo 'StrictHostKeyChecking=no' > ~/.ssh/config
+    chmod 600 ~/.ssh/config
 
-echo 'StrictHostKeyChecking=no' > ~/.ssh/config
-chmod 600 ~/.ssh/config
-
-mkdir -p "$1/.profile.d"
-cat > "$1/.profile.d/00-deploy-ssh-key.sh" << EOF
+    mkdir -p "$1/.profile.d"
+    cat > "$1/.profile.d/00-deploy-ssh-key.sh" << EOF
     echo 'deploy ssh deploy key'
 
     mkdir -p ~/.ssh/
@@ -49,4 +42,5 @@ cat > "$1/.profile.d/00-deploy-ssh-key.sh" << EOF
 
     echo 'StrictHostKeyChecking=no' > ~/.ssh/config
     chmod 600 ~/.ssh/config
-EOF
+    EOF
+fi
