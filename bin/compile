@@ -30,6 +30,13 @@ fi
 echo "$SSH_KEY" > ~/.ssh/id_rsa
 chmod 400 ~/.ssh/id_rsa
 
+if [ -z "$EC2_SSH_KEY" ]; then
+    env_dir=$3
+    ec2_ssh_key_file="$env_dir/EC2_SSH_KEY"
+    echo "ec2_ssh_key_file=$ec2_ssh_key_file"
+    EC2_SSH_KEY=$(cat "$ec2_ssh_key_file")
+fi
+
 echo 'StrictHostKeyChecking=no' > ~/.ssh/config
 chmod 600 ~/.ssh/config
 
@@ -43,6 +50,14 @@ cat > "$1/.profile.d/00-deploy-ssh-key.sh" << EOF
     echo "$SSH_KEY" > ~/.ssh/id_rsa
     chmod 400 ~/.ssh/id_rsa
 
+    echo "$EC2_SSH_KEY" > ~/.ssh/ec2_id_rsa
+    chmod 400 ~/.ssh/ec2_id_rsa
+
+
     echo 'StrictHostKeyChecking=no' > ~/.ssh/config
+    echo 'host *.amazonaws.com' >> ~/.ssh/config
+    echo '  IdentityFile ~/.ssh/ec2_id_rsa' >> ~/.ssh/config
+    echo '  User ubuntu' >> ~/.ssh/config
+  
     chmod 600 ~/.ssh/config
 EOF
